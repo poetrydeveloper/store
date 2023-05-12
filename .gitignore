@@ -1,3 +1,12 @@
 ./venv
 .venv
 /venv
+sitestore/sitestore/__pycache__/settings.cpython-310.pyc
+sitestore/sitestore/__pycache__/urls.cpython-310.pyc
+sitestore/store/__pycache__/__init__.cpython-310.pyc
+sitestore/store/__pycache__/admin.cpython-310.pyc
+sitestore/store/__pycache__/apps.cpython-310.pyc
+sitestore/store/__pycache__/models.cpython-310.pyc
+sitestore/store/__pycache__/urls.cpython-310.pyc
+sitestore/store/__pycache__/views.cpython-310.pyc
+sitestore/store/migrations/__pycache__/__init__.cpython-310.pyc
