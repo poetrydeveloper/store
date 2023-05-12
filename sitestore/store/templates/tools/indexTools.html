@@ -1,0 +1,10 @@
+{{title}}
+
+{%for tool in tools%}
+	<div>
+		<p>{{ tool.code }}</p>
+		<p>{{ tool.name }}</p>
+		<p>{{ tool.created_at|date:"Y-m-d H:i:s" }}</p>
+	</div>
+	<hr>
+{%endfor%}
