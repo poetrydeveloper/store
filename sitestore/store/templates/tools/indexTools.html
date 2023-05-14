@@ -37,12 +37,21 @@
 			<div class="col-md-12">
 				{%for tool in tools%}
 				<div class="card mb-3">
+					
 					<div class="card-header">
-						<span>{{tool.code}}</span> | <span>{{tool.provider}}</span> 
+						<span>{{tool.provider}}</span> | <span>{{tool.code}}</span> | <span>{{tool.brand}}</span>
 					</div>
+					
 					<div class="card-body">
+						<div class="media">
+							{% if tool.photo %}
+							<img src="{{tool.photo.url}}" width="350" alt="Card image cap">
+							{% else %}
+							<img src="https://dummyimage.com/350x200/000000/fff&text=clear+image" alt="Card ">
+							{% endif %}
+						</div>
 						<h5 class="card-title">{{tool.name}}</h5>
-						<p class="card-text">{{tool.desc}}</p>
+						<p class="card-text">{{tool.desc|truncatewords:10}}</p>
 						<a href="#" class="btn btn-primary">Read more...</a>
 					</div>
 					<div class="card-footer text-muted">
