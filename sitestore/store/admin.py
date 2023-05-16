@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tools, Provider, Brand, Category, Tag
+from .models import Tools, Provider, Brand, Tag
 from django.utils.safestring import mark_safe
 
 class ToolsAdmin(admin.ModelAdmin):
@@ -25,11 +25,11 @@ class BrandAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'name')
     search_fields = ('name',)
 
-class CategoryAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ("name",)}
-    list_display = ('id', 'name',)
-    list_display_links = ('id', 'name')
-    search_fields = ('name',)
+# class CategoryAdmin(admin.ModelAdmin):
+#     prepopulated_fields = {'slug': ("name",)}
+#     list_display = ('id', 'name',)
+#     list_display_links = ('id', 'name')
+#     search_fields = ('name',)
 
 class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ("name",)}
@@ -40,6 +40,6 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(Tools, ToolsAdmin)
 admin.site.register(Provider, ProviderAdmin)
 admin.site.register(Brand, BrandAdmin)
-admin.site.register(Category, CategoryAdmin)
+# admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag, TagAdmin)
 

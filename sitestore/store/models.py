@@ -9,7 +9,7 @@ class Tools(models.Model):
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     provider = models.ForeignKey('Provider', on_delete=models.PROTECT, null=True, verbose_name='Поставщик')
     brand = models.ForeignKey('Brand', on_delete=models.PROTECT, null=True, verbose_name='Бренд')
-    category= models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Категория', related_name='tools')
+    # category= models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Категория', related_name='tools')
     tag= models.ManyToManyField('Tag', blank=True, related_name='tools', verbose_name='Тег')
     
     def __str__(self):
@@ -40,17 +40,17 @@ class Brand(models.Model):
         verbose_name_plural = 'Бренды'
         ordering = ['name']
 
-class Category(models.Model):
-    name = models.CharField(max_length=50, db_index=True, verbose_name='Категория')
-    slug = models.SlugField(max_length=250, verbose_name='Url', unique=True)
+# class Category(models.Model):
+#     name = models.CharField(max_length=50, db_index=True, verbose_name='Категория')
+#     slug = models.SlugField(max_length=250, verbose_name='Url', unique=True)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
     
-    class Meta:
-        verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
-        ordering = ['name']
+#     class Meta:
+#         verbose_name = 'Категория'
+#         verbose_name_plural = 'Категории'
+#         ordering = ['name']
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, db_index=True, verbose_name='Тег')
