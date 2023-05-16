@@ -63,3 +63,15 @@ class Tag(models.Model):
         verbose_name = 'Тег'
         verbose_name_plural = 'Теги'
         ordering = ['name']
+
+class Store(models.Model):
+    name = models.CharField(max_length=50, db_index=True, verbose_name='Тег')
+    slug = models.SlugField(max_length=250, verbose_name='Tag', unique=True)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = 'Магазин'
+        verbose_name_plural = 'Магазины'
+        ordering = ['name']
