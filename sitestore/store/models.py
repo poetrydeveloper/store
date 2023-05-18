@@ -81,7 +81,7 @@ class OrderStore(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Изменен')
     quantity = models.PositiveIntegerField(null=True, verbose_name='Количество')
     price = models.FloatField(blank=True, verbose_name='Цена')
-    tools = models.ManyToManyField('Tools', blank=True, related_name='orderStore', verbose_name='Заявка')
+    tools = models.ManyToManyField('Tools', blank=True, related_name='tools', verbose_name='Товар')
 
     def __str__(self):
         return f'{[self.created_at, self.quantity,]!r}'
