@@ -17,12 +17,13 @@ class IndexTools(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Список инструментов'
         return context
+    
+class IndexOrderStore(ListView):
+    model = OrderStore
+    template_name = 'orders/indexOrderStore.html'
+    context_object_name = 'orders'
 
-def indexOrderStore(request):
-    # students = python.student_set.all()
-    orders = OrderStore.objects.all()
-    context = {
-        'orders': orders,
-        'title': 'Список заявок'
-    }
-    return render(request, 'orders/indexOrderStore.html', context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Список заявок'
+        return context
