@@ -10,7 +10,7 @@ class Tools(models.Model):
     provider = models.ForeignKey('Provider', on_delete=models.PROTECT, null=True, verbose_name='Поставщик')
     brand = models.ForeignKey('Brand', on_delete=models.PROTECT, null=True, verbose_name='Бренд')
     # category= models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Категория', related_name='tools')
-    tag= models.ManyToManyField('Tag', blank=True, related_name='tools', verbose_name='Тег')
+    tag = models.ManyToManyField('Tag', blank=True, related_name='tools', verbose_name='Тег')
     
     def __str__(self):
               return self.name
@@ -75,3 +75,18 @@ class Store(models.Model):
         verbose_name = 'Магазин'
         verbose_name_plural = 'Магазины'
         ordering = ['name']
+
+class OrderStore(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Изменен')
+    quantity = models.PositiveIntegerField(null=True, verbose_name='Количество')
+    price = models.FloatField(blank=True, verbose_name='Цена')
+    tools = models.ManyToManyField('Tools', blank=True, related_name='tools', verbose_name='Товар')
+
+    def __str__(self):
+        return f'{[self.created_at, self.quantity,]!r}'
+    
+    class Meta:
+        verbose_name = 'ЗаказНаМагазин'
+        verbose_name_plural = 'ЗаказыНаМагазин'
+        ordering = ['-created_at']
