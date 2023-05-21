@@ -13,13 +13,17 @@
 		</div>
 		<div class="card-body">
 			<div>
-
-					<h5 class="card-title">{{order.created_at|date:"Y-m-d H:i:s"}}</h5>
-					<span class="card-text">Количество: {{order.quantity}}</span>
-					<span class="card-text">Цена:{{order.price}}</span>
-					<p class="card-text">{{order.tools}}</p>
-					<a href="#" class="btn btn-primary">Read more...</a>
-
+				<div style="display : flex; flex-direction : row; align-content: start;">
+						{% if order.tools.photo %}
+						<img  src="{{order.tools.photo.url}}" style="width: 20%;" class="mr-3" alt="Card image cap" >
+					{% endif %}
+					<div>
+						<p class="card-text">Поставщик: {{order.tools.provider}} | Дата: {{order.created_at|date:"Y-m-d"}} </p>
+						<p class="card-text">{{order.tools.name}} </p>
+						<p class="card-text">Цена: {{order.price}} | Количество:  {{order.quantity}}</p>
+						<a href="#" class="btn btn-primary">Read more...</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

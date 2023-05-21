@@ -2,8 +2,20 @@ from django.contrib import admin
 from .models import Tools, Provider, Brand, Tag, Store, OrderStore
 from django.utils.safestring import mark_safe
 
+from django import forms
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+
+
+class ToolsAdminForm(forms.ModelForm):
+    name = forms.CharField(widget=CKEditorUploadingWidget())
+    desc = forms.CharField(widget=CKEditorUploadingWidget())
+    class Meta:
+        model = Tools
+        fields = '__all__'
+
 class ToolsAdmin(admin.ModelAdmin):
     list_display = ('id', 'code', 'provider', 'brand', 'name','desc','created_at', 'get_photo','updated_at',)
+    form = ToolsAdminForm
     list_display_links = ('id', 'code', 'name')
     search_fields = ('code', 'name', 'brand')
     list_filter = ('provider', 'brand', )
