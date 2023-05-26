@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{title}}
+{% endblock %}
+	
+{% block content %}
+<div class="col-md-12">
+	{%for delivery in deliveries %}
+	<div class="card mb-3">
+		<div class="card-header">
+			<span>{{delivery.created_at|date:"Y-m-d H:i:s"}}</span>
+		</div>
+		<div class="card-body">
+			<div>
+				<div style="display : flex; flex-direction : row; align-content: start;">
+						{% if delivery.order.tools.photo %}
+						<img  src="{{delivery.order.tools.photo.url}}" style="width: 20%;" class="mr-3" alt="Card image cap" >
+					{% endif %}
+					<div>
+						<p class="card-text">Поставщик: {{delivery.order.tools.provider}} | Дата: {{delivery.created_at|date:"Y-m-d"}} </p>
+						<p class="card-text">{{delivery.order.tools.name}} </p>
+						<p class="card-text">Цена поставки: {{delivery.price}} | Количество поставки:  {{delivery.quantity}}</p>
+						<a href="#" class="btn btn-primary">Read more...</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{%endfor%}
+</div>
+
+<div class="col-md-12">
+	{%for m_delivery in m_deliveries %}
+	<div class="card mb-3">
+		<div class="card-header">
+			<span>{{m_delivery.created_at|date:"Y-m-d H:i:s"}}</span>
+		</div>
+		<div class="card-body">
+			<div>
+				<div style="display : flex; flex-direction : row; align-content: start;">
+						{% if m_delivery.tools.photo %}
+						<img  src="{{m_delivery.tools.photo.url}}" style="width: 20%;" class="mr-3" alt="Card image cap" >
+					{% endif %}
+					<div>
+						<p class="card-text">Поставщик: {{m_delivery.tools.provider}} | Дата: {{m_delivery.created_at|date:"Y-m-d"}} </p>
+						<p class="card-text">{{m_delivery.tools.name}} </p>
+						<p class="card-text">Цена поставки: {{m_delivery.price}} | Количество поставки:  {{m_delivery.quantity}}</p>
+						<a href="#" class="btn btn-primary">Read more...</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{%endfor%}
+</div>
+{% endblock %}

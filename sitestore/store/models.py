@@ -84,9 +84,39 @@ class OrderStore(models.Model):
     tools = models.ForeignKey('Tools', on_delete=models.PROTECT, blank=True, verbose_name='Товар')
 
     def __str__(self):
-        return f'{[self.created_at, self.quantity,]!r}'
+        return f'{self.created_at.date()} - {self.tools}, {self.quantity}шт.'
     
     class Meta:
         verbose_name = 'ЗаказНаМагазин'
         verbose_name_plural = 'ЗаказыНаМагазин'
+        ordering = ['-created_at']
+
+class DeliveryStore(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Изменен')
+    quantity = models.PositiveIntegerField(null=True, verbose_name='Количество')
+    price = models.FloatField(blank=True, verbose_name='Цена')
+    order = models.OneToOneField('OrderStore', on_delete=models.PROTECT, blank=True, verbose_name='Заказ')
+
+    def __str__(self):
+        return f'{self.created_at.date()} - {self.tools}, {self.quantity}шт.'
+    
+    class Meta:
+        verbose_name = 'ПоставкаНаМагазин'
+        verbose_name_plural = 'ПоставкиНаМагазин'
+        ordering = ['-created_at']
+
+class ManualDeliveryStore(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Изменен')
+    quantity = models.PositiveIntegerField(null=True, verbose_name='Количество')
+    price = models.FloatField(blank=True, verbose_name='Цена')
+    tools = models.ForeignKey('Tools', on_delete=models.PROTECT, blank=True, verbose_name='Товар')
+
+    def __str__(self):
+        return f'Ручная - {self.created_at.date()} - {self.tools}, {self.quantity}шт.'
+    
+    class Meta:
+        verbose_name = 'РучнаяПоставкаНаМагазин'
+        verbose_name_plural = 'РучныеПоставкиНаМагазин'
         ordering = ['-created_at']

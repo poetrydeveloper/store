@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Tools, OrderStore
+from .models import *
 
 from django.views.generic import ListView
 
@@ -26,4 +26,25 @@ class IndexOrderStore(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Список заявок'
+        return context
+    
+
+class IndexDeliveryStore(ListView):
+    model = DeliveryStore
+    template_name = 'deliveries/indexDeliveryStore.html'
+    context_object_name = 'deliveries'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Список Прихода товара'
+        return context
+
+
+class IndexManualDeliveryStore(ListView):
+    model = ManualDeliveryStore
+    template_name = 'deliveries/indexDeliveryStore.html'
+    context_object_name = 'm_deliveries'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
         return context

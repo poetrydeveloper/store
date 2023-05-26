@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tools, Provider, Brand, Tag, Store, OrderStore
+from .models import *
 from django.utils.safestring import mark_safe
 
 from django import forms
@@ -61,6 +61,18 @@ class OrderStoreAdmin(admin.ModelAdmin):
     search_fields = ('code', 'quantity')
     list_filter = ('id', 'created_at',)
 
+class DeliveryStoreAdmin(admin.ModelAdmin):
+    list_display = ('id', 'created_at','updated_at','quantity', 'price',)
+    list_display_links = ('id', 'created_at',)
+    search_fields = ('code', 'quantity')
+    list_filter = ('id', 'created_at',)
+
+class ManualDeliveryStoreAdmin(admin.ModelAdmin):
+    list_display = ('id', 'created_at','updated_at','quantity', 'price',)
+    list_display_links = ('id', 'created_at',)
+    search_fields = ('code', 'quantity')
+    list_filter = ('id', 'created_at',)
+
 admin.site.register(Tools, ToolsAdmin)
 admin.site.register(Provider, ProviderAdmin)
 admin.site.register(Brand, BrandAdmin)
@@ -68,4 +80,6 @@ admin.site.register(Brand, BrandAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Store, StoreAdmin)
 admin.site.register(OrderStore, OrderStoreAdmin)
+admin.site.register(DeliveryStore, DeliveryStoreAdmin)
+admin.site.register(ManualDeliveryStore, ManualDeliveryStoreAdmin)
 
