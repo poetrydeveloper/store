@@ -56,22 +56,47 @@ class StoreAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 class OrderStoreAdmin(admin.ModelAdmin):
-    list_display = ('id', 'created_at','updated_at','quantity', 'price',)
+    list_display = ('id', 'created_at','updated_at','name','quantity', 'price',)
     list_display_links = ('id', 'created_at',)
     search_fields = ('code', 'quantity')
     list_filter = ('id', 'created_at',)
+
+    def name(self, obj):
+        return obj.tools
+    name.short_description = u'название'
 
 class DeliveryStoreAdmin(admin.ModelAdmin):
-    list_display = ('id', 'created_at','updated_at','quantity', 'price',)
+    list_display = ('id', 'created_at','updated_at','name','quantity', 'price',)
     list_display_links = ('id', 'created_at',)
     search_fields = ('code', 'quantity')
     list_filter = ('id', 'created_at',)
 
+    def name(self, obj):
+        return obj.order.tools
+    name.short_description = u'название'
+
 class ManualDeliveryStoreAdmin(admin.ModelAdmin):
-    list_display = ('id', 'created_at','updated_at','quantity', 'price',)
+    list_display = ('id', 'created_at','updated_at','name','quantity', 'price',)
     list_display_links = ('id', 'created_at',)
     search_fields = ('code', 'quantity')
     list_filter = ('id', 'created_at',)
+
+    def name(self, obj):
+        return obj.tools
+    name.short_description = u'название'
+
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('id', 'created_at','updated_at', 'name', 'quantity', 'price',)
+    list_display_links = ('id', 'created_at',)
+    search_fields = ('code', 'quantity')
+    list_filter = ('id', 'created_at',)
+
+    def name(self, obj):
+        if hasattr( obj.delivery, "order"):
+            return obj.delivery.order.tools
+        else:
+            return obj.manual_delivery.tools
+    name.short_description = u'название '
 
 admin.site.register(Tools, ToolsAdmin)
 admin.site.register(Provider, ProviderAdmin)
@@ -82,4 +107,4 @@ admin.site.register(Store, StoreAdmin)
 admin.site.register(OrderStore, OrderStoreAdmin)
 admin.site.register(DeliveryStore, DeliveryStoreAdmin)
 admin.site.register(ManualDeliveryStore, ManualDeliveryStoreAdmin)
-
+admin.site.register(Product, ProductAdmin)
