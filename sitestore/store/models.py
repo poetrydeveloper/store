@@ -87,8 +87,8 @@ class OrderStore(models.Model):
         return f'{self.created_at.date()} - {self.tools}, {self.quantity}шт.'
     
     class Meta:
-        verbose_name = 'ЗаказНаМагазин'
-        verbose_name_plural = 'ЗаказыНаМагазин'
+        verbose_name = 'заказ на магазин'
+        verbose_name_plural = 'заказы на магазин'
         ordering = ['-created_at']
 
 class DeliveryStore(models.Model):
@@ -99,11 +99,11 @@ class DeliveryStore(models.Model):
     order = models.OneToOneField('OrderStore', on_delete=models.PROTECT, blank=True, verbose_name='Заказ')
 
     def __str__(self):
-        return f'{self.created_at.date()} - {self.tools}, {self.quantity}шт.'
+        return f'{self.created_at.date()} - {self.order.tools.name}, {self.quantity}шт.'
     
     class Meta:
-        verbose_name = 'ПоставкаНаМагазин'
-        verbose_name_plural = 'ПоставкиНаМагазин'
+        verbose_name = 'поставка на магазин'
+        verbose_name_plural = 'поставки на магазин'
         ordering = ['-created_at']
 
 class ManualDeliveryStore(models.Model):
@@ -117,6 +117,22 @@ class ManualDeliveryStore(models.Model):
         return f'Ручная - {self.created_at.date()} - {self.tools}, {self.quantity}шт.'
     
     class Meta:
-        verbose_name = 'РучнаяПоставкаНаМагазин'
-        verbose_name_plural = 'РучныеПоставкиНаМагазин'
+        verbose_name = 'ручная поставка на магазин'
+        verbose_name_plural = 'ручные поставки на магазин'
+        ordering = ['-created_at']
+
+class Product(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Изменен')
+    delivery = models.OneToOneField('DeliveryStore', on_delete=models.PROTECT, null=True, blank=True, verbose_name='Заказ')
+    manual_delivery = models.OneToOneField('ManualDeliveryStore', on_delete=models.PROTECT, blank=True,null=True, verbose_name='ручной заказ')
+    quantity = models.PositiveIntegerField(null=True, verbose_name='Количество')
+    price = models.FloatField(blank=True, verbose_name='Цена')
+
+    def __str__(self):
+        return f'Продукт - {self.created_at.date()} - , {self.quantity}шт.'
+    
+    class Meta:
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
         ordering = ['-created_at']

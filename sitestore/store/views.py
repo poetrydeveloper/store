@@ -47,4 +47,15 @@ class IndexManualDeliveryStore(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = 'Ручной Список Прихода товара'
+        return context
+
+class IndexProduct(ListView):
+    model = Product
+    template_name = 'products/indexProduct.html'
+    context_object_name = 'products'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Товары'
         return context
