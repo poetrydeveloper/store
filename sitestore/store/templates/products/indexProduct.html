@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{title}}
+{% endblock %}
+	
+{% block content %}
+<div class="col-md-12">
+	{%for product in products %}
+	<div class="card mb-3">
+		<div class="card-header">
+			<span>{{product.created_at|date:"Y-m-d H:i:s"}}</span>
+		</div>
+		<div class="card-body">
+			<div>
+				<div style="display : flex; flex-direction : row; align-content: start;">
+						{% if product.delivery.order.tools.photo %}
+						<img  src="{{delivery.order.tools.photo.url}}" style="width: 20%;" class="mr-3" alt="Card image cap" >
+						{% elif product.manual_delivery.order.tools.photo %}
+						<img  src="{{delivery.order.tools.photo.url}}" style="width: 20%;" class="mr-3" alt="Card image cap" >
+						{% endif %}
+					<div>
+						{% if product.delivery.order.tools.name %}
+						<p class="card-text">Поставщик: {{product.delivery.order.tools.provider}} | Дата: {{product.delivery.created_at|date:"Y-m-d"}} </p>
+						<p class="card-text">{{product.delivery.order.tools.name}} </p>
+						<p class="card-text">Цена поставки: {{product.delivery.price}} | Количество поставки:  {{product.delivery.quantity}}</p>
+						
+						
+						{% elif product.manual_delivery.order.tools.name %}
+						<p class="card-text">Поставщик: {{product.manual_delivery.order.tools.provider}} | Дата: {{product.manual_delivery.created_at|date:"Y-m-d"}} </p>
+						<p class="card-text">{{product.manual_delivery.order.tools.name}} </p>
+						<p class="card-text">Цена поставки: {{product.manual_delivery.price}} | Количество поставки:  {{product.manual_delivery.quantity}}</p>
+						{% endif %}
+						<a href="#" class="btn btn-primary">Read more...</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{%endfor%}
+</div>
+
+{% endblock %}
