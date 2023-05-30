@@ -1,6 +1,14 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 
+
+
+class MainPage(models.Model):
+    
+    def __str__(self):
+              return self.name
+
+
 class Tools(models.Model):
     code = models.CharField(max_length=100, verbose_name='Артикул')
     name = models.TextField(max_length=250, verbose_name='Название')
