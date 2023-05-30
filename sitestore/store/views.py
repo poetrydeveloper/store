@@ -4,9 +4,16 @@ from .models import *
 
 from django.views.generic import ListView
 
-def index(request):
-    return HttpResponse('<h1>Привет мир</h1>')
 
+class IndexMain(ListView):
+    model = MainPage
+    template_name = 'main/main.html'
+    context_object_name = 'main'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Главная страница'
+        return context
 
 class IndexTools(ListView):
     model = Tools
