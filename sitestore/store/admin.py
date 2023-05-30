@@ -92,6 +92,20 @@ class ProductAdmin(admin.ModelAdmin):
             return obj.manual_delivery.tools
     name.short_description = u'название '
 
+
+class P_CollectionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'created_at','updated_at', 'name', 'quantity', 'note',)
+    list_display_links = ('id', 'created_at',)
+    search_fields = ('quantity',)
+    list_filter = ('id', 'created_at',)
+
+    def name(self, obj):
+        if hasattr( obj.products.delivery, "order"):
+            return obj.products.delivery.order.tools
+        else:
+            return obj.products.manual_delivery.tools
+    name.short_description = u'название '
+
 admin.site.register(Tools, ToolsAdmin)
 admin.site.register(Provider, ProviderAdmin)
 admin.site.register(Brand, BrandAdmin)
@@ -102,3 +116,4 @@ admin.site.register(OrderStore, OrderStoreAdmin)
 admin.site.register(DeliveryStore, DeliveryStoreAdmin)
 admin.site.register(ManualDeliveryStore, ManualDeliveryStoreAdmin)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(CollectionProducts, P_CollectionAdmin)

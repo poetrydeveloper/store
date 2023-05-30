@@ -9,6 +9,21 @@ class MainPage(models.Model):
               return self.name
 
 
+class CollectionProducts(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Изменен')
+    products = models.ForeignKey('Product', on_delete=models.PROTECT, blank=True, verbose_name='Продукт')
+    note = models.TextField(max_length=250, blank=True, verbose_name='Описание', null=True)
+    quantity = models.PositiveIntegerField(null=True, verbose_name='Количество в магазине.')
+
+    def __str__(self):
+        return f'Ед.т.: {self.products.delivery.order.tools.name}, {self.quantity}шт.'
+    
+    class Meta:
+        verbose_name = 'Добавленный товар в магазин.'
+        verbose_name_plural = 'Добавленные товары в магазин.'
+        ordering = ['created_at']
+
 class Tools(models.Model):
     code = models.CharField(max_length=100, verbose_name='Артикул')
     name = models.TextField(max_length=250, verbose_name='Название')
