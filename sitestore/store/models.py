@@ -1,16 +1,17 @@
 from django.db import models
+from mptt.models import MPTTModel, TreeForeignKey
 
 class Tools(models.Model):
     code = models.CharField(max_length=100, verbose_name='Артикул')
     name = models.TextField(max_length=250, verbose_name='Название')
-    desc = models.TextField(max_length=250, blank=True, verbose_name='Описание')
+    desc = models.TextField(max_length=250, blank=True, verbose_name='Описание', null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Изменен')
-    photo = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True, verbose_name='Фото')
     provider = models.ForeignKey('Provider', on_delete=models.PROTECT, null=True, verbose_name='Поставщик')
     brand = models.ForeignKey('Brand', on_delete=models.PROTECT, null=True, verbose_name='Бренд')
-    # category= models.ForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Категория', related_name='tools')
-    tag = models.ManyToManyField('Tag', blank=True, related_name='tools', verbose_name='Тег')
+    category= TreeForeignKey('Category', on_delete=models.PROTECT, null=True, verbose_name='Категория', related_name='cat')
+    tag = models.ManyToManyField('Tag', blank=True, related_name='tag', verbose_name='Тег')
     
     def __str__(self):
               return self.name
@@ -40,17 +41,18 @@ class Brand(models.Model):
         verbose_name_plural = 'Бренды'
         ordering = ['name']
 
-# class Category(models.Model):
-#     name = models.CharField(max_length=50, db_index=True, verbose_name='Категория')
-#     slug = models.SlugField(max_length=250, verbose_name='Url', unique=True)
+class Category(MPTTModel):
+    name = models.CharField(max_length=50, db_index=True, unique=True, verbose_name='Категория')
+    slug = models.SlugField(max_length=250, verbose_name='Url', unique=True)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children', verbose_name='Родительский класс')
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.name
     
-#     class Meta:
-#         verbose_name = 'Категория'
-#         verbose_name_plural = 'Категории'
-#         ordering = ['name']
+    class MPTTMeta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+        order_insertion_by = ['name']
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, db_index=True, verbose_name='Тег')
