@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'store.apps.StoreConfig',
+    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sitestore.wsgi.application'
 
+MPTT_ADMIN_LEVEL_INDENT = 40
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
