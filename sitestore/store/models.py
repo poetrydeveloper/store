@@ -13,7 +13,7 @@ class CollectionProducts(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Изменен')
     products = models.ForeignKey('Product', on_delete=models.PROTECT, blank=True, verbose_name='Продукт')
-    note = models.TextField(max_length=250, blank=True, verbose_name='Описание', null=True)
+    note = models.TextField(max_length=250, blank=True, verbose_name='Примечание', null=True)
     quantity = models.PositiveIntegerField(null=True, verbose_name='Количество в магазине.')
 
     def __str__(self):
@@ -149,6 +149,7 @@ class ManualDeliveryStore(models.Model):
 class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Изменен')
+    icode = models.TextField(max_length=250, verbose_name='внутренний код',null=True,blank=True,)
     delivery = models.OneToOneField('DeliveryStore', on_delete=models.PROTECT, null=True, blank=True, verbose_name='Заказ')
     manual_delivery = models.OneToOneField('ManualDeliveryStore', on_delete=models.PROTECT, blank=True,null=True, verbose_name='ручной заказ')
     quantity = models.PositiveIntegerField(null=True, verbose_name='Количество')
