@@ -10,14 +10,40 @@
     <link href="{% static 'bootstrap\css\bootstrap.min.css' %}" rel="stylesheet" >
     <title>{% block title %} {% endblock%}</title>
   </head>
-  <body>
-	{% include 'inc/_nav.html' %}
+  <body class=''>
+	  <div class="container">
 
-	  <div class="container mb-3">
 		<div class="row">
-			{% block content %} Content {%endblock%}
+			<div class="col">
+				{% include 'inc/_nav.html' %}
+			</div>
+		</div>
 
-			<div class="col-md-12">
+		<div class="row" style="margin-top: 3.5rem">
+			<div class="col">
+				 <form class="form-inline bg-light">
+					<input class=" mr-sm-2 w-75" type="text" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col">
+				<div class="bg-light">панель с тегами</div>
+				<div class="bg-light">панель результаты поиска</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				1 из 3
+			  </div>
+			  <div class="col-10 ">
+				{% block content %} Content {%endblock%}
+			  </div>
+			
+
+			{% comment %} <div class="col-md-12">
 				{%for tool in tools%}
 				<div class="card mb-3">
 					
@@ -42,8 +68,15 @@
 					</div>
 				</div>
 				{%endfor%}
-			</div>
+			</div> {% endcomment %}
 		</div>
+		<div class="row">
+			<div class="col">
+				{% include 'inc/_footer.html' %}
+			</div>
+			
+		</div>
+		
 	  </div>
 
     <script src="{% static 'bootstrap\css\bootstrap.min.css' %}" ></script>
