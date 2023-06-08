@@ -106,6 +106,14 @@ class P_CollectionAdmin(admin.ModelAdmin):
             return obj.products.manual_delivery.tools
     name.short_description = u'название '
 
+
+class SalesAdmin(admin.ModelAdmin):
+    list_display = ('id', 'created_at','updated_at', 'note', 'price')
+    list_display_links = ('id', 'created_at',)
+    search_fields = ('created_at',)
+    list_filter = ('id', 'created_at',)
+
+
 admin.site.register(Tools, ToolsAdmin)
 admin.site.register(Provider, ProviderAdmin)
 admin.site.register(Brand, BrandAdmin)
@@ -117,3 +125,4 @@ admin.site.register(DeliveryStore, DeliveryStoreAdmin)
 admin.site.register(ManualDeliveryStore, ManualDeliveryStoreAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(CollectionProducts, P_CollectionAdmin)
+admin.site.register(Sales, SalesAdmin)

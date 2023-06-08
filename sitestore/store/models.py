@@ -162,3 +162,20 @@ class Product(models.Model):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ['-created_at']
+
+
+class Sales(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Создан')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Изменен')
+    code_record = models.TextField(max_length=250, verbose_name='код записи',null=True,blank=True,)
+    price = models.FloatField(blank=True, verbose_name='Цена продажи')
+    note = models.TextField(max_length=250, blank=True, verbose_name='Примечание', null=True)
+    products = models.ForeignKey('Product', on_delete=models.PROTECT, blank=True, verbose_name='Продукт')
+
+    def __str__(self):
+        return f'Продажа - {self.created_at.date()} '
+    
+    class Meta:
+        verbose_name = 'Продажа'
+        verbose_name_plural = 'Продажи'
+        ordering = ['created_at']
