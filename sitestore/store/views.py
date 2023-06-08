@@ -76,3 +76,13 @@ class IndexProductCollections(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Список сформированных товаров'
         return context
+    
+class IndexSales(ListView):
+    model = Sales
+    template_name = 'sales/indexSales.html'
+    context_object_name = 'sales'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Список продаж'
+        return context

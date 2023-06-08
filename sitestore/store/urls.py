@@ -9,4 +9,5 @@ urlpatterns = [
     path('m_deliveries', IndexManualDeliveryStore.as_view(), name='m_deliveries'),
     path('products', IndexProduct.as_view(), name='products'),
     path('p_collections', IndexProductCollections.as_view(), name='p_collections'),
+    path('sales', IndexSales.as_view(), name='sales'),
 ]
